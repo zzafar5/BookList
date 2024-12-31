@@ -1,0 +1,174 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+/**
+ * Book Management System for beginners.
+ *
+ * This program allows users to add books, view the list of books, and mark books as read.
+ *
+ * @version December 6, 2024
+ * @author Zaneb Zafar
+ */
+public class BookManagement {
+
+    /**
+     * Represents a book with a title, author, and read status.
+     */
+    static class Book {
+        private String title;
+        private String author;
+        private boolean isRead;
+
+        /**
+         * Constructor for Book.
+         *
+         * @param title  the title of the book
+         * @param author the author of the book
+         */
+        public Book(String title, String author) {
+            this.title = title;
+            this.author = author;
+            this.isRead = false; // Default status is "Not Read"
+        }
+
+        /**
+         * Gets the title of the book.
+         *
+         * @return the title of the book
+         */
+        public String getTitle() {
+            return title;
+        }
+
+        /**
+         * Gets the author of the book.
+         *
+         * @return the author of the book
+         */
+        public String getAuthor() {
+            return author;
+        }
+
+        /**
+         * Checks if the book is marked as read.
+         *
+         * @return true if the book is read, false otherwise
+         */
+        public boolean isRead() {
+            return isRead;
+        }
+
+        /**
+         * Marks the book as read.
+         */
+        public void markAsRead() {
+            isRead = true;
+        }
+
+        @Override
+        public String toString() {
+            return "Book: [Title: " + title + ", Author: " + author + ", Status: " + (isRead ? "Read" : "Not Read") + "]";
+        }
+    }
+
+    /**
+     * Manages the list of books and operations like adding, viewing, and marking books as read.
+     */
+    static class BookManager {
+        private List<Book> books;
+
+        /**
+         * Constructor for BookManager.
+         */
+        public BookManager() {
+            books = new ArrayList<>();
+        }
+
+        /**
+         * Adds a new book to the collection.
+         *
+         * @param title  the title of the book
+         * @param author the author of the book
+         */
+        public void addBook(String title, String author) {
+            books.add(new Book(title, author));
+            System.out.println("Book added successfully.");
+        }
+
+        /**
+         * Displays all books in the collection.
+         */
+        public void displayBooks() {
+            if (books.isEmpty()) {
+                System.out.println("No books available in the collection.");
+            } else {
+                int count = 1;
+                for (Book book : books) {
+                    System.out.println(count + ". " + book);
+                    count++;
+                }
+            }
+        }
+
+        /**
+         * Marks a book as read by its index in the list.
+         *
+         * @param index the 1-based index of the book to mark as read
+         */
+        public void markBookAsRead(int index) {
+            if (index < 1 || index > books.size()) {
+                System.out.println("Invalid book number.");
+            } else {
+                books.get(index - 1).markAsRead();
+                System.out.println("Book marked as read.");
+            }
+        }
+    }
+
+    /**
+     * Main method to run the Book Management System.
+     *
+     * @param args command-line arguments (not used)
+     */
+    public static void main(String[] args) {
+        BookManager manager = new BookManager();
+        Scanner scanner = new Scanner(System.in);
+
+        boolean running = true;
+
+        while (running) {
+            System.out.println("\nBook Management System");
+            System.out.println("1. Add Book");
+            System.out.println("2. View Books");
+            System.out.println("3. Mark Book as Read");
+            System.out.println("0. Exit");
+            System.out.print("Enter your choice: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            if (choice == 1) {
+                System.out.print("Enter book title: ");
+                String title = scanner.nextLine();
+                System.out.print("Enter book author: ");
+                String author = scanner.nextLine();
+                manager.addBook(title, author);
+            } else if (choice == 2) {
+                manager.displayBooks();
+            } else if (choice == 3) {
+                manager.displayBooks();
+                System.out.print("Enter the number of the book to mark as read: ");
+                int index = scanner.nextInt();
+                manager.markBookAsRead(index);
+            } else if (choice == 0) {
+                running = false;
+                System.out.println("Goodbye!");
+            } else {
+                System.out.println("Invalid choice. Please try again.");
+            }
+        }
+
+        scanner.close();
+    }
+}
