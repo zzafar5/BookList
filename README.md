@@ -30,6 +30,4 @@ This project demonstrates fundamental Java programming skills, including:
 
 ## **Usage**
 ### **Running the Program**
-1. Compile the program using a Java IDE or the command line:
-   ```bash
-   javac BookManagement.java
+1. Compile the program using a Java IDE 
